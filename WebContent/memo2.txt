@@ -1,0 +1,83 @@
+drop sequence seqmem;
+
+create sequence seqmem  
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+nocache;
+
+drop table mymem ;
+
+create table mymem(
+	id number primary key,
+	name varchar2(10),
+	password varchar2(10)
+);
+
+insert into mymem values(seqmem.nextval, '김철수','1234');
+insert into mymem values(seqmem.nextval, '아이유','5678');
+
+commit;
+
+select * from mymem;
+
+JDBC
+0. jar포함
+1. 드라이버 로드
+2. 계정에 접속
+3. SQL 분석 
+4. ?(위치 홀더)에 값 세팅
+5. SQL 실행
+6. close
+
+---------------
+drop sequence seqmy ;
+create sequence seqmy 
+	start with 1
+	minvalue 1
+	increment by 1
+	nocache;
+	
+
+drop table survey purge ;
+create table survey(
+	no number primary key,
+	name varchar2(50),
+	company varchar2(50),
+	email varchar2(50),
+	satisfaction varchar2(50),
+	part varchar2(100),
+	howto varchar2(50),
+	agree number
+) ;
+insert into survey
+values(seqmy.nextval,'길동','현대','abc@daum.net','만족','서블릿','우편',1);
+commit ;
+
+col no for 999
+col company for a6
+col email for a15
+col satisfaction for a10
+col part for a15
+col part for a15
+col howto for a5
+col agree for 99
+select * from survey;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
