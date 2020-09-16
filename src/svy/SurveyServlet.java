@@ -22,6 +22,10 @@ public class SurveyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	ServletContext context;
+	String driver;
+	String url;
+	String user;
+	String password;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,6 +40,17 @@ public class SurveyServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		context = config.getServletContext();
+		
+		driver = config.getInitParameter("driver");
+		url = config.getInitParameter("url");
+		user = config.getInitParameter("user");
+		password = config.getInitParameter("password");
+		
+		System.out.println("driver:"+driver);
+		System.out.println("url:"+url);
+		System.out.println("user:"+user);
+		System.out.println("password:"+password);
+		
 	}
 
 	/**
@@ -66,7 +81,7 @@ public class SurveyServlet extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		surveyDAO sdao = surveyDAO.getInstance();
+		surveyDAO sdao = surveyDAO.getInstance(driver,url,user,password);
 		
 		String uri = request.getRequestURI();
 		String contextPath = request.getContextPath();
@@ -74,6 +89,7 @@ public class SurveyServlet extends HttpServlet {
 		String command = uri.substring(len);
 		System.out.println(command);
 		String viewPage = "";
+		
 		
 		if(command.contentEquals("/insert.sv")) {
 			String name = request.getParameter("name");

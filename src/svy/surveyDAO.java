@@ -8,10 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class surveyDAO {
-	private String driver = "oracle.jdbc.OracleDriver";
-	private String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-	private String user = "jspid";
-	private String password = "jsppw";
+
+	private String driver;
+	private String url;
+	private String user;
+	private String password;
 	
 	Connection conn = null;
 	PreparedStatement ps = null;
@@ -19,14 +20,22 @@ public class surveyDAO {
 	
 	private static surveyDAO sdao;
 	
-	public static surveyDAO getInstance() {
+	public static surveyDAO getInstance(String driver, String url, String user, String password) {
 		if(sdao == null) {
-			sdao = new surveyDAO();
+			sdao = new surveyDAO(driver, url, user, password);
 		}
 		return sdao;
 	}
 	
 	private surveyDAO() {
+		
+	}
+	private surveyDAO (String driver, String url, String user, String password) {
+		this.driver = driver;
+		this.url = url;
+		this.user = user;
+		this.password = password;
+		
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
